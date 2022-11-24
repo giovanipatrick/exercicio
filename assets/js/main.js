@@ -1,61 +1,78 @@
-const h1 = document.querySelector(".container h1");
-const data = new Date();
-h1.innerHTML = data.toString();
+document.addEventListener("DOMContentLoaded", () => {
 
-function getDiaSemanaTexto(diaSemana) {
-  const diasSemana = [
-    "Domingo",
-    "Segunda",
-    "Terça",
-    "Quarta",
-    "Quinta",
-    "Sexta",
-    "Sábado",
-  ];
-  return diasSemana[diaSemana];
-}
+ /* const h1 = document.querySelector(".container h1");
+  const data = new Date();
 
-function getNomeMes(numeroMes) {
-  const meses = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-  ];
-  return meses[numeroMes];
-}
+  function getDiaSemanaTexto(diaSemana) {
+    const diasSemana = [
+      "Domingo",
+      "Segunda",
+      "Terça",
+      "Quarta",
+      "Quinta",
+      "Sexta",
+      "Sábado",
+    ];
+    return diasSemana[diaSemana];
+  }
 
-function zeroAEsquerda(num) {
-  return num >= 10 ? num : `0${num}`;
-}
+  function getNomeMes(numeroMes) {
+    const meses = [
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro",
+    ];
+    return meses[numeroMes];
+  }
 
-function criaData(data) {
-  const diaSemana = data.getDay();
-  const numeroMes = data.getMonth();
+  function zeroAEsquerda(num) {
+    return num >= 10 ? num : `0${num}`;
+  }
 
-  const nomeDia = getDiaSemanaTexto(diaSemana);
-  const nomeMes = getNomeMes(numeroMes);
+  function criaData(data) {
+    const diaSemana = data.getDay();
+    const numeroMes = data.getMonth();
 
-  return (
-    `${nomeDia}, ${data.getDate()} de ${nomeMes}` +
-    ` de ${data.getFullYear()} ` +
-    `${zeroAEsquerda(data.getHours())}:${zeroAEsquerda(data.getMinutes())}`
-  );
-}
+    const nomeDia = getDiaSemanaTexto(diaSemana);
+    const nomeMes = getNomeMes(numeroMes);
 
-h1.innerHTML = criaData(data);
+    return (
+      `${nomeDia}, ${data.getDate()} de ${nomeMes}` +
+      ` de ${data.getFullYear()} ` +
+      `${zeroAEsquerda(data.getHours())}:${zeroAEsquerda(data.getMinutes())}`
+    );
+  }
 
-// const h1 = document.querySelector(".container h1");
-// const data = new Date();
-// h1.innerHTML = data.toLocaleDateString("pt-BR", {
-//   dateStyle: "full",
-//   timeStyle: "short",
-// });
+  h1.innerHTML = criaData(data); */
+
+  /** 
+   * Não é necessário estar dentro de uma função 
+   * A função eu utilizo pra atualizar o tempo de 10 em 10 ms na tela 
+   * O que importa é usar a Intl pra formatar a data.
+   * A documentação da INTL é https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+   * o document.addEventListener("DOMContentLoaded") é utilizado para esperar o carregamento completo da página e só depois disso o JS é chamado.
+   */
+  const atualiza_tempo = function(){
+    const h1 = document.querySelector(".container h1");
+    const data = new Date();
+    let full_time = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'full', timeStyle: 'medium', timeZone: 'America/Sao_paulo' }).format(data);
+    h1.innerHTML = full_time;
+  }
+
+  setInterval(()=>{
+
+    atualiza_tempo();
+
+  },20);
+
+
+});
